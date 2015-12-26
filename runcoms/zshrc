@@ -1,13 +1,93 @@
-#
-# Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
-
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
+# brew told me to: Add the following to your zshrc to access the online help:
+unalias run-help
+autoload run-help
+HELPDIR=/usr/local/share/zsh/help
+
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+export SCALA_HOME=~/scala/scala-2.10.4
+export PATH=$PATH:~/bin:/Users/jnewman/activator-1.2.10/:~/scala/scala-2.10.4/bin
+export PATH=/Users/jnewman/pydis/pydi-0.26.0/pydi-venv/bin:$PATH
+export TUATARA_PIPELINE_PASSWORD="Oy0sHos1Em5Bo9Ha"
+export PIKACHU_PIPELINE_PASSWORD="Cyn8uC6arv7oiG4E"
+export DIS_USERNAME=palantir
+export DIS_PASSWORD=pjo63\%oWxZ0L\^89Z
+export STAGING_DIS_USERNAME=palantir
+export STAGING_DIS_PASSWORD="GAaFc[Yz^68GGE"
+export IDEA_DIR="/Applications/IntelliJ IDEA 14 CE.app/Contents"
+export BUILD_TAG=141.1532.4
+
+alias vsql="~/vertica/bin/vsql -h vertica -U dbadmin -w password"
+alias gw="./gradlew --info"
+# Show human friendly numbers and colors
+alias df='df -h'
+alias ll='ls -alGh'
+alias ls='ls -Gh'
+alias du='du -h -d 2'
+# Git Aliases
+alias gs='git status'
+alias gstsh='git stash'
+alias gst='git stash'
+alias gsh='git show'
+alias gshw='git show'
+alias gshow='git show'
+alias gi='vi .gitignore'
+alias gcm='git ci -m'
+alias gcim='git ci -m'
+alias gci='git ci'
+alias gco='git co'
+alias ga='git add -A'
+alias guns='git unstage'
+alias gunc='git uncommit'
+alias gm='git merge'
+alias gms='git merge --squash'
+alias gam='git amend --reset-author'
+alias gr='git rebase'
+alias gra='git rebase --abort'
+alias ggrc='git rebase --continue'
+alias gbi='git rebase --interactive'
+alias gl='git l'
+alias glg='git l'
+alias glog='git l'
+alias co='git co'
+alias gf='git fetch'
+alias gfch='git fetch'
+alias gd='git diff'
+alias gb='git b'
+alias gdc='git diff --cached'
+alias gpub='grb publish'
+alias gtr='grb track'
+alias gpl='git pull'
+alias gplr='git pull --rebase'
+alias gps='git push'
+alias gpsh='git push'
+alias gnb='git nb' # new branch aka checkout -b
+alias grs='git reset' 
+alias grsh='git reset --hard'
+alias gcln='git clean'
+alias gclndf='git clean -df'
+alias gsm='git submodule'
+alias gsmi='git submodule init'
+alias gsmu='git submodule update'
+alias gt='git t'
+
+function gio() { curl -s https://www.gitignore.io/api/$@ ;}
+function jv() { export JAVA_HOME=`/usr/libexec/java_home -v $@` }
+function mksrc() { mkdir -p src/main/java src/main/resources src/test/java src/test/resources }
+
+# Disable vim mode (in favour of emacs mode)..
+bindkey -e
+# http://unix.stackexchange.com/questions/33994/zsh-interpret-ignore-commands-beginning-with-as-comments
+set -k
+
+autoload -Uz promptinit
+promptinit
+prompt skwp
+
+tick_mark=✔
+cross_mark=✘
+PS1="%(?,%F{green}$tick_mark,%F{red}$cross_mark)%f $PS1"
